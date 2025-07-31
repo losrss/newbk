@@ -6,11 +6,13 @@
   "scripts": {
     "dev:client": "vite --host --port 3000",
     "dev": "pnpm dev:client",
-     "build:client": "vite build --outDir dist",
-    "build": "rimraf dist && pnpm build:client && cp package.json dist && echo 'Build completed successfully' > dist/build.success",
-        "preview": "vite preview"
-      },
-      "dependencies": {
+    "build:client": "vite build --outDir dist",
+    "build": "rimraf dist && pnpm build:client && (if [ -d 'dist' ] && [ -f 'dist/index.html' ]; then cp package.json dist && echo 'Build completed successfully' > dist/build.success && echo '构建成功！文件已生成在dist目录中'; else echo '构建失败：未找到dist目录或关键文件'; exit 1; fi)",
+    "preview": "vite preview",
+    "clean-install": "rimraf node_modules pnpm-lock.yaml && pnpm install"
+
+  },
+  "dependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^12.9.2",
     "react": "^18.3.1",
@@ -20,8 +22,8 @@
     "sonner": "^2.0.2",
     "tailwind-merge": "^3.0.2",
     "zod": "^3.24.2",
-     "axios": "^1.6.8"
-   },
+    "axios": "^1.6.8"
+  },
   "devDependencies": {
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
